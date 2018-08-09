@@ -42,6 +42,9 @@
         <div class="item">
             <a href="https://tinypng.com/" target="_blank"><span>TinyPNG</span></a>
         </div>
+        <div class="item">
+            <a href="http://tool.chinaz.com/tools/unixtime.aspx" target="_blank"><span>Unicode/时间戳</span></a>
+        </div>
     </div>
 
     <div>
