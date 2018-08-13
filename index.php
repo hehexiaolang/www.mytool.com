@@ -91,4 +91,15 @@
     console.log('author:fenglang');
 </script>
 
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?5238681cbc226bf00501d6c71176d424";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
 </html>
