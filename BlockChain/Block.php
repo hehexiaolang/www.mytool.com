@@ -49,7 +49,7 @@ class Block
             }
         }
 
-        echo "run data:{$this->data}, preHash:{$this->preBlockHash}, hash:{$this->hash}, nonce:{$this->nonce}\n";
+        echo "run data:{$this->data}, preHash:{$this->preBlockHash}, hash:{$this->hash}, nonce:{$this->nonce}, nonceStr:{$this->getNonceStr($this->nonce)}\n";
     }
 
     function getNonceStr($nonce = '')
