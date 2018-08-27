@@ -8,6 +8,24 @@
 
 require 'BlockChain/BlockChain.php';
 
+//$paramArr = $argv;
+//
+//var_dump(arg('-uid'), arg('-age'));
+//
+function arg($param = '')
+{
+    global $paramArr;
+    $value = '';
+
+    foreach ($paramArr as $k => $v) {
+        if ($v == $param) {
+            $value = $paramArr[$k + 1];
+            break;
+        }
+    }
+    return $value;
+}
+
 
 $blockChain = new BlockChain();
 
