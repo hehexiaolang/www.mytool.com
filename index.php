@@ -51,9 +51,9 @@
 <div style="width: 80%;margin: 80px auto 0 auto;text-align: center;">
     <div>
         <div class="item">
-            <a href="https://www.99cankao.com/colorconverter/color-coder.php" target="_blank">
-                <img class="icon" src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2272523309,3903860987&fm=58">
-                <span class="content">RGB转换</span>
+            <a href="http://47.52.59.191/php-2048/shuangua.php" target="_blank">
+<!--                <img class="icon" src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2272523309,3903860987&fm=58">-->
+                <span class="content">计算机算卦</span>
             </a>
         </div>
         <div class="item">
@@ -80,6 +80,12 @@
             <a href="http://dwz.cn/" target="_blank">
                 <img class="icon" src="img/short-url.ico">
                 <span class="content">短网址生成</span>
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://www.99cankao.com/colorconverter/color-coder.php" target="_blank">
+                <img class="icon" src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2272523309,3903860987&fm=58">
+                <span class="content">RGB转换</span>
             </a>
         </div>
     </div>
