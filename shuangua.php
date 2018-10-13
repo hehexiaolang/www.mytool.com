@@ -17,7 +17,8 @@ $four = 4;
 
 gua();
 
-function gua() {
+function gua()
+{
     $yiao_arr = [];
 
     for ($i = 0; $i < 6; $i++) {
@@ -54,7 +55,8 @@ function gua() {
     }
 }
 
-function yiao() {
+function yiao()
+{
     global $total, $four;
 
     $ret = bian(bian(bian($total)));
@@ -64,7 +66,8 @@ function yiao() {
     return $ret;
 }
 
-function bian($total) {
+function bian($total)
+{
     $sky = rand(1, $total - 2);
     $earth = $total - $sky - 1;
     $people = 1;
@@ -77,38 +80,31 @@ function bian($total) {
     return $sky_mod + $earth_mode;
 }
 
-function get_gua_name($one, $two, $three) {
+function get_gua_name($one, $two, $three)
+{
     $yin = 2;
     $yang = 3;
+
+    $gua_name_arr = array(
+        333 => "乾",
+        222 => "坤",
+        223 => "震",
+        322 => "艮",
+        323 => "离",
+        232 => "坎",
+        233 => "兑",
+        332 => "巽"
+    );
 
     $one = $one % 2 == 0 ? $yin : $yang;
     $two = $two % 2 == 0 ? $yin : $yang;
     $three = $three % 2 == 0 ? $yin : $yang;
 
-    $union = "$one$two$three";
-
-    if ($union == 333) {
-        return "乾";
-    } elseif ($union == 222) {
-        return "坤";
-    } elseif ($union == 223) {
-        return "震";
-    } elseif ($union == 322) {
-        return "艮";
-    } elseif ($union == 323) {
-        return "离";
-    } elseif ($union == 232) {
-        return "坎";
-    } elseif ($union == 233) {
-        return "兑";
-    } elseif ($union == 332) {
-        return "巽";
-    } else {
-        return "未知";
-    }
+    return $gua_name_arr[$one . $two . $three];
 }
 
-function mod($num) {
+function mod($num)
+{
     global $four;
     $mod = $num % $four;
 
