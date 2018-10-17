@@ -15,9 +15,9 @@ header("content-type:text/html;charset=utf-8");
 $total = 49;
 $four = 4;
 
-$left_content = "";
-$center_content = "";
-$right_content = "";
+$left_content = "<h2>步骤：</h2>";
+$center_content = "<h2>结果：</h2>";
+$right_content = "<h2>卦辞：</h2>";
 
 gua();
 
@@ -128,7 +128,7 @@ function get_content($url, $gua_name)
     $html = file_get_contents($url);
     $match = [];
 
-    if (preg_match_all("/[\d]+?.aspx\">$gua_name/", $html, $match)) { // 卦名
+    if (preg_match_all("/[\d]+?.aspx\">[\s\S]{0,3}$gua_name/", $html, $match)) { // 卦名
         foreach ($match[0] as $value) {
             $page_num = preg_replace('/\D/s', '', $value);
 
@@ -138,7 +138,7 @@ function get_content($url, $gua_name)
             $content = [];
 
             if (preg_match("/<b>[\s\S]+?<\/b>/", $html, $title)) { // 卦名
-                $right_content .= "<h2>{$title[0]}</h2>";
+                $right_content .= "<h3>{$title[0]}</h3>";
             }
 
             if (preg_match("/<div class=\"contson[\s\S]+?div>/", $html, $content)) { // 卦辞、爻辞
