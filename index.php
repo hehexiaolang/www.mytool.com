@@ -52,8 +52,12 @@
     <div>
         <div class="item">
             <a href="shuangua.php" target="_blank">
-<!--                <img class="icon" src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2272523309,3903860987&fm=58">-->
                 <span class="content">计算机算卦</span>
+            </a>
+        </div>
+        <div class="item">
+            <a href="lottery.php" target="_blank">
+                <span class="content">彩票预测</span>
             </a>
         </div>
         <div class="item">
