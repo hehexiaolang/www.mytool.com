@@ -16,7 +16,7 @@ $tail_arr = [];
 $tail_cnt = 0;
 
 for ($i = 1; $i <= $total_num; $i++) {
-    $html = file_get_contents("http://www.17500.cn/widget/_ssq/ssqfanjiang/p/$total_num.html");
+    $html = file_get_contents("http://www.17500.cn/widget/_ssq/ssqfanjiang/p/$i.html");
 
     if (preg_match_all("/\d\d\s\d\d\s\d\d\s\d\d\s\d\d\s\d\d\+\d\d/", $html, $ret)) {
         foreach ($ret[0] as $item) {
