@@ -76,7 +76,7 @@ foreach ($tail_arr as $key => $value) {
 
 <html>
 <head>
-    <title>双色情概率分析</title>
+    <title>双色球概率分析</title>
     <style type="text/css">
         .content {
             display: inline-block;
