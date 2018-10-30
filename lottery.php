@@ -7,7 +7,7 @@ header("content-type:text/html;charset=utf-8");
  * Time: 16:54
  */
 
-$html = file_get_contents("https://m.500.com/info/kaijiang/moreexpect/ssq/?0_ala_h5baidu");
+$total_num = $_GET['total_num'] ? $_GET['total_num'] : 1;
 
 $head_arr = [];
 $head_cnt = 0;
@@ -15,17 +15,21 @@ $head_cnt = 0;
 $tail_arr = [];
 $tail_cnt = 0;
 
-if (preg_match_all("/kaij-jg-wq[\s\S]+?\/ul/", $html, $ret)) {
-    foreach ($ret[0] as $item) {
-        if (preg_match_all("/\d+/", $item, $num)) {
-            $len = count($num[0]);
-            foreach ($num[0] as $i => $v) {
-                if ($i != $len - 1) {
-                    $head_arr[$v] += 1;
-                    $head_cnt++;
-                } else {
-                    $tail_arr[$v] += 1;
-                    $tail_cnt++;
+for ($i = 1; $i <= $total_num; $i++) {
+    $html = file_get_contents("http://www.17500.cn/widget/_ssq/ssqfanjiang/p/$total_num.html");
+
+    if (preg_match_all("/\d\d\s\d\d\s\d\d\s\d\d\s\d\d\s\d\d\+\d\d/", $html, $ret)) {
+        foreach ($ret[0] as $item) {
+            if (preg_match_all("/\d+/", $item, $num)) {
+                $len = count($num[0]);
+                foreach ($num[0] as $k => $v) {
+                    if ($k != $len - 1) {
+                        $head_arr[$v] += 1;
+                        $head_cnt++;
+                    } else {
+                        $tail_arr[$v] += 1;
+                        $tail_cnt++;
+                    }
                 }
             }
         }
@@ -72,18 +76,32 @@ foreach ($tail_arr as $key => $value) {
 
 <html>
 <head>
-    <title>彩票预测</title>
+    <title>双色情概率分析</title>
     <style type="text/css">
         .content {
             display: inline-block;
             vertical-align: top;
-            margin-left: 300px;
+            margin-left: 150px;
         }
     </style>
 </head>
-
 <div>
     <div class="content"><?= $head_content ?></div>
     <div class="content"><?= $tail_content ?></div>
 </div>
+
+<form action="lottery.php" method="get">
+    <select title="条数" name="total_num" style="width: 100px;height: 50px;">
+        <?php
+        for ($i = 1; $i <= 11; $i++) {
+            if ($total_num == $i) {
+                echo "<option selected='selected' value='$i'>{$i}00条</option>";
+            } else {
+                echo "<option value='$i'>{$i}00条</option>";
+            }
+        }
+        ?>
+    </select>
+    <input style="width: 100px;height: 50px;-webkit-appearance:button;" type="submit" value="提交"/>
+</form>
 </html>
