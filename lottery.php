@@ -105,8 +105,8 @@ sort($rand_arr_gt['red']);
 
 $rand_arr_gt['blue'] = $select_arr_gt['blue'][array_rand($select_arr_gt['blue'])];
 
-echo "大于平均概率：<font size='4' color='blue'>" . implode(" ", $rand_arr_gt['red']) . "</font>"
-    . " + <font size='4' color='red'>" . $rand_arr_gt['blue'] . "</font><br>";
+echo "大于平均概率：<font size='4' color='red'>" . implode(" ", $rand_arr_gt['red']) . "</font>"
+    . " + <font size='4' color='green'>" . $rand_arr_gt['blue'] . "</font><br>";
 
 
 /**
@@ -127,8 +127,8 @@ sort($rand_arr_lt['red']);
 
 $rand_arr_lt['blue'] = $select_arr_lt['blue'][array_rand($select_arr_lt['blue'])];
 
-echo "小于平均概率：<font size='4' color='blue'>" . implode(" ", $rand_arr_lt['red']) . "</font>"
-    . " + <font size='4' color='red'>" . $rand_arr_lt['blue'] . "</font><br><br>";
+echo "小于平均概率：<font size='4' color='red'>" . implode(" ", $rand_arr_lt['red']) . "</font>"
+    . " + <font size='4' color='green'>" . $rand_arr_lt['blue'] . "</font><br><br>";
 ?>
 
 <html>
