@@ -44,6 +44,29 @@ for ($i = 1; $i <= $total_num; $i++) {
     }
 }
 
+/**
+ * 更改head_arr及tail_arr顺序
+ */
+$head_arr_tmp = [];
+$tail_arr_tmp = [];
+
+for ($i = 1; $i <= 33; $i++) {
+    $index = str_pad($i, 2, "0", STR_PAD_LEFT);
+    $head_arr_tmp[$index] = $head_arr[$index];
+}
+
+for ($i = 1; $i <= 16; $i++) {
+    $index = str_pad($i, 2, "0", STR_PAD_LEFT);
+    $tail_arr_tmp[$index] = $tail_arr[$index];
+}
+
+/**
+ * 显示
+ */
+
+$head_arr = $head_arr_tmp;
+$tail_arr = $tail_arr_tmp;
+
 $head_max = max($head_arr);
 $head_avg = number_format($head_cnt / 33, 2);
 
