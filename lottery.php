@@ -7,6 +7,14 @@ header("content-type:text/html;charset=utf-8");
  * Time: 16:54
  */
 
+// 随机区
+$select_arr_gt = [];
+$rand_arr_gt = [];
+
+$select_arr_lt = [];
+$rand_arr_lt = [];
+
+// 分析区
 $total_num = $_GET['total_num'] ? $_GET['total_num'] : 1;
 
 $head_arr = [];
@@ -47,6 +55,7 @@ $head_content = "红区:<br>平均次数：$head_cnt / 33 = <font color='green'>
 
 foreach ($head_arr as $key => $value) {
     if ($value >= $head_avg) {
+        $select_arr_gt['red'][] = $key;
         $head_content .= "<br><font size='2'>&nbsp;&nbsp;&nbsp;&nbsp;[$key] => $value</font>"
             . "<font size='2' color='green'>&nbsp;&nbsp;&nbsp;&nbsp;建议</font>";
 
@@ -54,6 +63,7 @@ foreach ($head_arr as $key => $value) {
             $head_content .= "<font size='2' color='red'>&nbsp;&nbsp;&nbsp;&nbsp;最多</font>";
         }
     } else {
+        $select_arr_lt['red'][] = $key;
         $head_content .= "<br><font size='2'>&nbsp;&nbsp;&nbsp;&nbsp;[$key] => $value</font>";
     }
 }
@@ -62,6 +72,7 @@ $tail_content = "蓝区:<br>平均次数：$tail_cnt / 16 = <font color='green'>
 
 foreach ($tail_arr as $key => $value) {
     if ($value >= $tail_avg) {
+        $select_arr_gt['blue'][] = $key;
         $tail_content .= "<br><font size='2'>&nbsp;&nbsp;&nbsp;&nbsp;[$key] => $value</font>"
             . "<font size='2' color='green'>&nbsp;&nbsp;&nbsp;&nbsp;建议</font>";
 
@@ -69,9 +80,55 @@ foreach ($tail_arr as $key => $value) {
             $tail_content .= "<font size='2' color='red'>&nbsp;&nbsp;&nbsp;&nbsp;最多</font>";
         }
     } else {
+        $select_arr_lt['blue'][] = $key;
         $tail_content .= "<br><font size='2'>&nbsp;&nbsp;&nbsp;&nbsp;[$key] => $value</font>";
     }
 }
+
+
+// 预测大概率组合
+/**
+ * 大于平均概率
+ */
+sort($select_arr_gt['red']);
+sort($select_arr_gt['blue']);
+
+for ($i = 0; $i < 6; $i++) {
+    $tmp = $select_arr_gt['red'][array_rand($select_arr_gt['red'])];
+    while (in_array($tmp, $rand_arr_gt['red'])) {
+        $tmp = $select_arr_gt['red'][array_rand($select_arr_gt['red'])];
+    }
+    $rand_arr_gt['red'][] = $tmp;
+}
+
+sort($rand_arr_gt['red']);
+
+$rand_arr_gt['blue'] = $select_arr_gt['blue'][array_rand($select_arr_gt['blue'])];
+
+echo "大于平均概率：<font size='4' color='blue'>" . implode(" ", $rand_arr_gt['red']) . "</font>"
+    . " + <font size='4' color='red'>" . $rand_arr_gt['blue'] . "</font><br>";
+
+
+/**
+ * 小于平均概率
+ */
+sort($select_arr_lt['red']);
+sort($select_arr_lt['blue']);
+
+for ($i = 0; $i < 6; $i++) {
+    $tmp = $select_arr_lt['red'][array_rand($select_arr_lt['red'])];
+    while (in_array($tmp, $rand_arr_lt['red'])) {
+        $tmp = $select_arr_lt['red'][array_rand($select_arr_lt['red'])];
+    }
+    $rand_arr_lt['red'][] = $tmp;
+}
+
+sort($rand_arr_lt['red']);
+
+$rand_arr_lt['blue'] = $select_arr_lt['blue'][array_rand($select_arr_lt['blue'])];
+
+echo "小于平均概率：<font size='4' color='blue'>" . implode(" ", $rand_arr_lt['red']) . "</font>"
+    . " + <font size='4' color='red'>" . $rand_arr_lt['blue'] . "</font><br><br>";
 ?>
 
 <html>
@@ -85,6 +142,12 @@ foreach ($tail_arr as $key => $value) {
         }
     </style>
 </head>
+
+<?php
+//echo "<pre>";
+//echo print_r($select_arr_gt);
+//echo "<pre>";
+?>
 <div>
     <div class="content"><?= $head_content ?></div>
     <div class="content"><?= $tail_content ?></div>
