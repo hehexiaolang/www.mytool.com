@@ -19,18 +19,23 @@ $left_content = "<h2>步骤：</h2>";
 $center_content = "<h2>结果：</h2>";
 $right_content = "<h2>卦辞：</h2>";
 
+$search_yao = $_POST['search_yao'] ? $_POST['search_yao'] : ""; // 直接查询的六爻
+
 gua();
 
 function gua()
 {
-    global $center_content;
+    global $center_content, $search_yao;
     $yao_arr = [];
 
-    for ($i = 0; $i < 6; $i++) {
-        $yao_arr[] = yao();
+    if ($search_yao) {
+        $yao_arr = str_split($search_yao);
+    } else {
+        for ($i = 0; $i < 6; $i++) {
+            $yao_arr[] = yao();
+        }
+        $yao_arr = array_reverse($yao_arr);
     }
-
-    $yao_arr = array_reverse($yao_arr);
 
     get_detail($yao_arr);
 
@@ -284,6 +289,12 @@ function get_detail_url($yao_arr)
         vertical-align: top;
     }
 </style>
+<div>
+    <form method="post" action="shuangua.php">
+        爻序列：<input type="text" name="search_yao" value="<?= $search_yao ?>">
+        <input type="submit" value="提交">
+    </form>
+</div>
 <div>
     <div class="frame">
         <?= $left_content ?>
