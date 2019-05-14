@@ -51,6 +51,14 @@ foreach ($res[0] as $key => $item) {
         file_put_contents($last_item, $title[0], FILE_TEXT); // 将最新项目写入文件
     }
 
+    $status_arr = array('h_zhao' => '#0FC38B', 'h_ce' => '#1081de', 'h_jie' => '#666');
+
+    foreach ($status_arr as $k => $value) {
+        if (strstr($status[0], $k)) {
+            $status[0] = "<span style='color: $value'>{$status[0]}</span>";
+        }
+    }
+
     if (!$time) {
         $time[0] = "已过期";
     }
@@ -84,6 +92,7 @@ $mail->Subject = $mail_subject; // 邮件主题
 $mail->Body = $mail_body;// 邮件正文
 //$mail->addAttachment('./example.pdf');// 为该邮件添加附件
 
+//$success = $mail->send();exit;
 if ($has_new_item) {
     $success = $mail->send();// 发送邮件 返回状态
 }
