@@ -29,6 +29,7 @@ if ($cnt <= 0) {
     return;
 }
 
+$mail_subject = '';
 $mail_body = "";
 $has_new_item = false;
 $last_item = 'last_item.txt';
@@ -46,6 +47,7 @@ foreach ($res[0] as $key => $item) {
 
     if ($key == 0 && $last_item_title != $title[0]) { // 新项目产生,则发邮件
         $has_new_item = true;
+        $mail_subject = rtrim(ltrim($title[0], "<span>"), "</span>");
         file_put_contents($last_item, $title[0], FILE_TEXT); // 将最新项目写入文件
     }
 
@@ -78,10 +80,9 @@ $mail->Password = 'twtzkumxxrapbcdf';// smtp登录的密码 使用生成的授�
 $mail->From = '1004859057@qq.com';// 发件人邮箱地址 同登录账号
 $mail->isHTML(true);// 邮件正文是否为html编码 注意此处是一个方法
 $mail->addAddress('1340797683@qq.com');// 收件人邮箱 注：添加多个收件人 则多次调用方法即可
-$mail->Subject = 'Testin有新项目啦';// 邮件主题
+$mail->Subject = $mail_subject; // 邮件主题
 $mail->Body = $mail_body;// 邮件正文
 //$mail->addAttachment('./example.pdf');// 为该邮件添加附件
-
 
 if ($has_new_item) {
     $success = $mail->send();// 发送邮件 返回状态
