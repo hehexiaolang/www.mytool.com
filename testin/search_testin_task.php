@@ -23,8 +23,8 @@ if (!$is_continue) {
 }
 
 $html = file_get_contents('https://www.ztestin.com/hall');
+$cnt = preg_match_all('/clearboth[\w\W]*?h_task_status[\w\W]+?<\/span>/', $html, $res);
 
-$cnt = preg_match_all('/clearboth[\w\W]*?h_task_status/', $html, $res);
 if ($cnt <= 0) {
     return;
 }
@@ -39,6 +39,7 @@ foreach ($res[0] as $key => $item) {
 
     preg_match('/hall\/info[\w\W]+?\"/', $item, $item_url);
     preg_match('/<span>[\w\W]+?<\/span>/', $item, $title);
+    preg_match('/<span class=\"h_task_status[\w\W]+?<\/span>/', $item, $status);
     preg_match('/(\d+天)?\d+?小时/', $item, $time);
     preg_match('/报名详情[\w\W]+\d+\/\d+/', $item, $rate_item);
     preg_match('/\d+\/\d+/', $rate_item[0], $rate);
@@ -51,8 +52,11 @@ foreach ($res[0] as $key => $item) {
     if (!$time) {
         $time[0] = "已过期";
     }
+
     $item_url = 'https://www.ztestin.com/' . rtrim($item_url[0], "\"");
-    $mail_body .= "<a style='color: #1081DE;text-decoration:none;' href='$item_url'>标题：{$title[0]}</a></br>" . "报名详情：{$rate[0]}&nbsp;&nbsp;&nbsp;&nbsp;" . "剩余时间：{$time[0]}<br><br>";
+    $mail_body .= "<a style='color: #1081DE;text-decoration:none;' href='$item_url'>{$title[0]}</a>"
+        . "&nbsp;&nbsp;&nbsp;&nbsp;{$status[0]}</br>"
+        . "报名详情：{$rate[0]}&nbsp;&nbsp;&nbsp;&nbsp;" . "剩余时间：{$time[0]}<br><br>";
 }
 
 /**
@@ -77,6 +81,7 @@ $mail->addAddress('1340797683@qq.com');// 收件人邮箱 注：添加多个收�
 $mail->Subject = 'Testin有新项目啦';// 邮件主题
 $mail->Body = $mail_body;// 邮件正文
 //$mail->addAttachment('./example.pdf');// 为该邮件添加附件
+
 
 if ($has_new_item) {
     $success = $mail->send();// 发送邮件 返回状态
