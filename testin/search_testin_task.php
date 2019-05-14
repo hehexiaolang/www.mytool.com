@@ -30,6 +30,7 @@ if ($cnt <= 0) {
 }
 
 $mail_body = "";
+$has_new_item = false;
 $last_item = 'last_item.txt';
 $last_item_title = file_get_contents($last_item);
 
@@ -42,9 +43,9 @@ foreach ($res[0] as $key => $item) {
     preg_match('/报名详情[\w\W]+\d+\/\d+/', $item, $rate_item);
     preg_match('/\d+\/\d+/', $rate_item[0], $rate);
 
-    if ($key == 0) {
-        if ($last_item_title == $title[0]) return; // 没有新项目产生,则不发邮件
-        file_put_contents($last_item, $title[0], FILE_TEXT); // 有新项目则将最新项目写入文件
+    if ($key == 0 && $last_item_title != $title[0]) { // 新项目产生,则发邮件
+        $has_new_item = true;
+        file_put_contents($last_item, $title[0], FILE_TEXT); // 将最新项目写入文件
     }
 
     if (!$time) {
@@ -77,7 +78,10 @@ $mail->Subject = 'Testin有新项目啦';// 邮件主题
 $mail->Body = $mail_body;// 邮件正文
 //$mail->addAttachment('./example.pdf');// 为该邮件添加附件
 
-$success = $mail->send();// 发送邮件 返回状态
+if ($has_new_item) {
+    $success = $mail->send();// 发送邮件 返回状态
+}
+
 sleep(15);
 file_get_contents($url);
 //echo "发送成功: " . time();
