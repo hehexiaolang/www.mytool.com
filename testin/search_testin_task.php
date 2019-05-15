@@ -32,6 +32,8 @@ if ($cnt <= 0) {
 $mail_subject = '';
 $mail_body = "";
 $has_new_item = false;
+$log_file = 'log.txt';
+$log_text = file_get_contents($log_file);
 $last_item = 'last_item.txt';
 $last_item_title = file_get_contents($last_item);
 
@@ -44,6 +46,14 @@ foreach ($res[0] as $key => $item) {
     preg_match('/(\d+天)?\d+?小时/', $item, $time);
     preg_match('/报名详情[\w\W]+\d+\/\d+/', $item, $rate_item);
     preg_match('/\d+\/\d+/', $rate_item[0], $rate);
+
+    if ($key == 0) {
+        if (strlen($log_text) > 500) {
+            file_put_contents($log_file, "已更新...\r\n", FILE_TEXT); // 将最新项目写入文件
+        }
+
+        file_put_contents($log_file, $title[0] . time() . "\r\n", FILE_APPEND); // 将最新项目写入文件
+    }
 
     if ($key == 0 && $last_item_title != $title[0]) { // 新项目产生,则发邮件
         $has_new_item = true;
