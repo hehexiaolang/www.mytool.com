@@ -1,16 +1,19 @@
 <?php
+// 废话生成器
 
 $data = json_decode(file_get_contents('data.json'), true);
+$title = !empty($_GET['title']) ? $_GET['title'] : $data['title'];
 $content = '';
 
 for ($j = 0; $j < 5; $j++) {
-    $content .= getSection($data)."<br><br>";
+    $content .= getSection($data) . "<br><br>";
 }
-echo ($content);
+echo "<br><br><h2 style='text-align: center'>$title</h2><br><br>";
+echo($content);
 
-
-function getSection($data){
-    $title = $_GET['title'];
+function getSection($data)
+{
+    $title = !empty($_GET['title']) ? $_GET['title'] : $data['title'];
     $before_arr = $data['before'];
     $after_arr = $data['after'];
     $bosh_arr = $data['bosh'];
@@ -32,10 +35,7 @@ function getSection($data){
             $bosh_str .= $bosh;
         }
 
-        $section .= $bosh_str.$famous ;
+        $section .= $bosh_str . $famous;
     }
     return $section;
 }
-
-
-
