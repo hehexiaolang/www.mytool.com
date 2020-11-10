@@ -19,7 +19,7 @@ $left_content = "<h2>步骤：</h2>";
 $center_content = "<h2>结果：</h2>";
 $right_content = "<h2>卦辞：</h2>";
 
-$search_yao = $_POST['search_yao'] ? $_POST['search_yao'] : ""; // 直接查询的六爻
+$search_yao = isset($_POST['search_yao']) ? $_POST['search_yao'] : ""; // 直接查询的六爻
 
 gua();
 
